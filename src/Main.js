@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import CameraIcon from '@mui/icons-material/PhotoCamera';
@@ -35,6 +35,35 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const defaultTheme = createTheme();
 
 export default function Album() {
+  useEffect(() => {
+    const token = localStorage.getItem('token')
+    fetch('https://localhost:3333/authen', {
+            method: 'POST', 
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer '+token
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.status === 'ok') {
+                //alert('authen success')
+            } else {
+                alert('login failed')
+                localStorage.removeItem('token');
+                window.location = '/login'
+            }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        }); 
+
+  },[])
+  const handleLogout = (event) => {
+    event.preventDefault();
+    localStorage.removeItem('token');
+    window.location = '/login'
+  }
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -76,8 +105,7 @@ export default function Album() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
+              <Button variant="contained" onClick={handleLogout}>Logout</Button>
             </Stack>
           </Container>
         </Box>

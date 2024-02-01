@@ -35,11 +35,11 @@ export default function SignInSide() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const jsonData = {
-      email: data.get('email'),
-      password: data.get('password'),
-    }
-
-     fetch('localhost:3333/login', {
+          email: data.get('email'),
+          password: data.get('password'),
+         }
+    
+      fetch('https://localhost:3333/login', {
             method: 'POST', 
             headers: {
               'Content-Type': 'application/json',
@@ -48,19 +48,17 @@ export default function SignInSide() {
           })
           .then(response => response.json())
           .then(data => {
-            if (data.status == 'ok') {
+            if (data.status === 'ok') {
                 alert('login success')
                 localStorage.setItem('token', data.token)
-                window.Location = '/main'
-                
+                window.location = '/main'
             } else {
                 alert('login failed')
             }
         })
         .catch((error) => {
           console.error("Error:", error);
-        });  
-          
+        }); 
     };
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -72,12 +70,14 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+           // backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+           backgroundImage: 'url(/assets/Logo_KMUTNB_Thai.jpg)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
+            backgroundSize: '100',
             backgroundPosition: 'center',
+            
           }}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
