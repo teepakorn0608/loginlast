@@ -37,12 +37,11 @@ export default function SignUp() {
     const jsonData = {
         email: data.get('email'),
         password: data.get('password'),
-        fname: data.get('firstname'),
-        lname: data.get('lasttname'),
+        fname: data.get('firstName'),
+        lname: data.get('lastName'),
     }
     
-  
-  fetch('https://localhost:3333/register', {
+    fetch('http://localhost:3333/register',  {
             method: 'POST', 
             headers: {
               'Content-Type': 'application/json',
@@ -51,15 +50,16 @@ export default function SignUp() {
           })
           .then(response => response.json())
           .then(data => {
-            if (data.status === 'ok') {
+            if(data.status === 'ok') {
                 alert('register success')
+                window.location = '/login'
             } else {
                 alert('register failed')
             }
         })
         .catch((error) => {
           console.error("Error:", error);
-        });
+        }); 
     };
 
   return (
@@ -141,7 +141,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

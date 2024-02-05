@@ -39,7 +39,7 @@ export default function SignInSide() {
           password: data.get('password'),
          }
     
-      fetch('https://localhost:3333/login', {
+         fetch('http://localhost:3333/login',  {
             method: 'POST', 
             headers: {
               'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ export default function SignInSide() {
           })
           .then(response => response.json())
           .then(data => {
-            if (data.status === 'ok') {
+            if(data.status === 'ok') {
                 alert('login success')
                 localStorage.setItem('token', data.token)
                 window.location = '/main'
@@ -60,8 +60,8 @@ export default function SignInSide() {
           console.error("Error:", error);
         }); 
     };
-  return (
-    <ThemeProvider theme={defaultTheme}>
+    return (
+      <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         <Grid
@@ -136,7 +136,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/register" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
